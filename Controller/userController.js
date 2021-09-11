@@ -1,12 +1,13 @@
 const userDatabase = require("../Model/userModel");
 const shortUserDatabase = require("../Model/shortUserModel");
 
-exports.userLogin =async (req,res)=>{
+exports.userSignup =async (req,res)=>{
 
     const savedUser = await userDatabase.create(req.body);
 
+    let skillCount = 0;
     await asyncForEach(req.body.skillSet,async (data)=>{
-        await shortUserDatabase.create({
+       const shortSavedUser = await shortUserDatabase.create({
             name : savedUser.name ,
             country : savedUser.country ,
             knownLanguage: savedUser.knownLanguage ,
@@ -15,12 +16,15 @@ exports.userLogin =async (req,res)=>{
             mainUserReference : savedUser._id,
             skill : data.skillName
         });
+       savedUser.skillSet[skillCount].referenceOfIdAssociatedWithThisSkill = shortSavedUser._id;
+       skillCount++;
     });
-
-    return res.status(201).json({
+    res.status(201).json({
         success : true ,
         message : "User Profile Created"
     });
+
+    await userDatabase.findByIdAndUpdate(savedUser._id,savedUser);
 }
 
 async function asyncForEach(array, callback) {

@@ -60,7 +60,8 @@ const user = new mongoose.Schema({
                 type : Boolean ,
                 default: false
             },
-            ratingAssociatedWithSkill : Number
+            ratingAssociatedWithSkill : Number,
+            referenceOfIdAssociatedWithThisSkill : String
         }
     }
 });
