@@ -6,13 +6,13 @@ const user = new mongoose.Schema({
     username : {
         type : String ,
         required : true,
-        unique : true,
+        // unique : true,
         min : [3],
     },
     email : {
         type : String ,
         required : true,
-        unique : true
+        // unique : true
     },
     password : {
         type : String ,
@@ -60,6 +60,7 @@ const user = new mongoose.Schema({
                 type : Boolean ,
                 default: false
             },
+            index : true,
             ratingAssociatedWithSkill : Number,
             referenceOfIdAssociatedWithThisSkill : String
         }

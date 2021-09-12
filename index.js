@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const userRouter = require("./Route/userRouter");
+const shortUserRouter = require("./Route/shortUserRoute");
 const dotenv = require("dotenv");
 dotenv.config({
     path : "./Configuration/config.env"
@@ -11,8 +12,10 @@ database()
     .then(()=>console.log("Connected To Database"))
     .catch(()=>console.log("Connection To Database Failed"));
 
+
 app.use(express.json());
 app.use("/api/v1",userRouter);
+app.use("/api/v1",shortUserRouter);
 
 
 const PORT = 8000 || process.env.PORT;

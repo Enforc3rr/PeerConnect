@@ -7,7 +7,7 @@ exports.userSignup =async (req,res)=>{
 
     let skillCount = 0;
     await asyncForEach(req.body.skillSet,async (data)=>{
-       const shortSavedUser = await shortUserDatabase.create({
+        const shortSavedUser = await shortUserDatabase.create({
             name : savedUser.name ,
             country : savedUser.country ,
             knownLanguage: savedUser.knownLanguage ,
@@ -16,8 +16,9 @@ exports.userSignup =async (req,res)=>{
             mainUserReference : savedUser._id,
             skill : data.skillName
         });
-       savedUser.skillSet[skillCount].referenceOfIdAssociatedWithThisSkill = shortSavedUser._id;
-       skillCount++;
+        savedUser.skillSet[skillCount].referenceOfIdAssociatedWithThisSkill = shortSavedUser._id;
+        skillCount++;
+       // savedUser.skillSet[skillCount].referenceOfIdAssociatedWithThisSkill = shortSavedUser._id;
     });
     res.status(201).json({
         success : true ,
